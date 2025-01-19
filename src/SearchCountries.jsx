@@ -40,13 +40,11 @@ function Countries() {
         fetchCountries();
     }, []);
 
-
     const handleSearchChange = (event) => {
         const searchValue = event.target.value.toLowerCase();
         setSearchTerm(searchValue);
 
-
-        const filtered = data.filter((country) =>
+        const filtered = data.filter((country) => 
             country.common && country.common.toLowerCase().includes(searchValue)
         );
 
