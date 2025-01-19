@@ -1,4 +1,4 @@
-.Card {
+.countryCard { /* Changed from .Card to .countryCard */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,8 +9,8 @@
     width: 200px;
     text-align: center;
     padding: 10px;
-
 }
+
 .NoResults {
     text-align: center;
     font-size: 18px;
@@ -18,22 +18,18 @@
     padding: 20px;
 }
 
-
 .SearchInput {
     padding: 10px;
     width: 750px;
     margin: 20px 20px 20px 290px;
     border-radius: 5px;
     border: 1px solid #ccc;
-   
 }
-
 
 .Card-img {
     height: 100px;
     width: 100px;
     margin-top: 20px;
-    
 }
 
 .Countries {
@@ -41,5 +37,4 @@
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
-
 }

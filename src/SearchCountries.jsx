@@ -1,6 +1,6 @@
 const CountryCard = ({ flag, name }) => {
     return (
-        <div className={styles.countryCard}> {/* Changed to match test case */}
+        <div className={styles.countryCard}> {/* Changed class to match test case */}
             <img src={flag} alt={`Flag of ${name}`} className={styles['Card-img']} />
             <h2>{name}</h2>
         </div>
@@ -64,15 +64,19 @@ function Countries() {
                 className={styles.SearchInput}
             />
 
-            <div className={styles.Countries}>
-                {filteredCountries.map((country) => (
-                    <CountryCard
-                        key={country.abbr || country.name}
-                        name={country.name}
-                        flag={country.png}
-                    />
-                ))}
-            </div>
+            {filteredCountries.length === 0 ? (
+                <div className={styles.NoResults}>No results found</div> // Show message when no results are found
+            ) : (
+                <div className={styles.Countries}>
+                    {filteredCountries.map((country) => (
+                        <CountryCard
+                            key={country.abbr || country.name}
+                            name={country.name}
+                            flag={country.png}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
