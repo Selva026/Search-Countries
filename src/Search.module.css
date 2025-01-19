@@ -1,4 +1,4 @@
-.countryCard { /* Changed from .Card to .countryCard */
+.countryCard {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,30 +11,44 @@
     padding: 10px;
 }
 
-.NoResults {
+.Card-img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover; 
+    margin-top: 20px;
+}
+
+.searchInput {
+    padding: 10px;
+    width: 750px;
+    margin: 20px auto;  
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.countries {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.noResults {
     text-align: center;
     font-size: 18px;
     color: #888;
     padding: 20px;
 }
 
-.SearchInput {
-    padding: 10px;
-    width: 750px;
-    margin: 20px 20px 20px 290px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.Card-img {
-    height: 100px;
-    width: 100px;
-    margin-top: 20px;
-}
-
-.Countries {
+.Card {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    border: 1px solid grey;
+    border-radius: 10px;
+    height: 200px;
+    width: 200px;
+    text-align: center;
+    padding: 10px;
 }
