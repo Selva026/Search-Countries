@@ -1,8 +1,11 @@
+import React, { useEffect, useState } from "react";
+import styles from "./Search.module.css";
+
 const CountryCard = ({ flag, name }) => {
     return (
-        <div className={styles.countryCard}> {/* Changed class to match test case */}
+        <div className={styles.countryCard}> {/* Ensure the class is as expected */}
             <img src={flag} alt={`Flag of ${name}`} className={styles['Card-img']} />
-            <h2>{name}</h2>
+            <h2>{name}</h2> {/* Ensure name is wrapped in h2 */}
         </div>
     );
 };
@@ -25,7 +28,7 @@ function Countries() {
                 }
 
                 const jsonData = await response.json();
-                setData(jsonData);
+                setData(jsonData); // Use the response directly (no need to access "common" here)
             } catch (err) {
                 console.error("Error fetching data:", err.message);
                 setError(err.message); // Update error state
@@ -49,9 +52,9 @@ function Countries() {
         return <div className={styles.Error}>Error fetching data: {error}</div>;
     }
 
-    // Filter countries based on the search term, ensuring country.name is defined
+    // Filter countries based on the search term
     const filteredCountries = data.filter((country) =>
-        country.name && country.name.toLowerCase().includes(searchTerm)
+        country.common && country.common.toLowerCase().includes(searchTerm)
     );
 
     return (
@@ -64,15 +67,16 @@ function Countries() {
                 className={styles.SearchInput}
             />
 
+            {/* Check if there are no results and display a message */}
             {filteredCountries.length === 0 ? (
                 <div className={styles.NoResults}>No results found</div> // Show message when no results are found
             ) : (
                 <div className={styles.Countries}>
                     {filteredCountries.map((country) => (
                         <CountryCard
-                            key={country.abbr || country.name}
-                            name={country.name}
-                            flag={country.png}
+                            key={country.common} // Using country.common as a unique key
+                            name={country.common} // Country name from the "common" key
+                            flag={country.png} // Flag URL from the "png" key
                         />
                     ))}
                 </div>
