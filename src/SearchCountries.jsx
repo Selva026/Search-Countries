@@ -1,9 +1,6 @@
-import styles from './Search.module.css';
-import React, { useState, useEffect } from 'react';
-
 const CountryCard = ({ flag, name }) => {
     return (
-        <div className={styles.Card}>
+        <div className={styles.countryCard}> {/* Changed to match test case */}
             <img src={flag} alt={`Flag of ${name}`} className={styles['Card-img']} />
             <h2>{name}</h2>
         </div>
@@ -17,7 +14,6 @@ function Countries() {
     const [error, setError] = useState(null); // State for error tracking
     const [loading, setLoading] = useState(true); // State for loading tracking
     const [searchTerm, setSearchTerm] = useState(''); // State for search term
-    const [filteredCountries, setFilteredCountries] = useState([]); // State for filtered countries
 
     useEffect(() => {
         const fetchCountries = async () => {
@@ -30,7 +26,6 @@ function Countries() {
 
                 const jsonData = await response.json();
                 setData(jsonData);
-                setFilteredCountries(jsonData); // Initially show all countries
             } catch (err) {
                 console.error("Error fetching data:", err.message);
                 setError(err.message); // Update error state
@@ -42,16 +37,8 @@ function Countries() {
         fetchCountries();
     }, []);
 
-    // Handle search term change
     const handleSearchChange = (event) => {
-        const searchValue = event.target.value.toLowerCase();
-        setSearchTerm(searchValue);
-
-        // Filter countries based on the search term
-        const filtered = data.filter((country) =>
-            country.common && country.common.toLowerCase().includes(searchValue)
-        );
-        setFilteredCountries(filtered);
+        setSearchTerm(event.target.value.toLowerCase());
     };
 
     if (loading) {
@@ -61,6 +48,11 @@ function Countries() {
     if (error) {
         return <div className={styles.Error}>Error fetching data: {error}</div>;
     }
+
+    // Filter countries based on the search term, ensuring country.name is defined
+    const filteredCountries = data.filter((country) =>
+        country.name && country.name.toLowerCase().includes(searchTerm)
+    );
 
     return (
         <div>
@@ -73,17 +65,13 @@ function Countries() {
             />
 
             <div className={styles.Countries}>
-                {filteredCountries.length === 0 ? (
-                    <div className={styles.NoResults}>No countries found</div>
-                ) : (
-                    filteredCountries.map((country) => (
-                        <CountryCard
-                            key={country.common} // Use common name as the key
-                            name={country.common}
-                            flag={country.png}
-                        />
-                    ))
-                )}
+                {filteredCountries.map((country) => (
+                    <CountryCard
+                        key={country.abbr || country.name}
+                        name={country.name}
+                        flag={country.png}
+                    />
+                ))}
             </div>
         </div>
     );
