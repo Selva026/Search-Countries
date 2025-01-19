@@ -3,8 +3,8 @@ import styles from "./Search.module.css";
 
 const CountryCard = ({ flag, name }) => {
     return (
-        <div className={styles.countryCard}> {/* Changed class to match test case */}
-            <img src={flag} alt={`Flag of ${name}`} className={styles['Card-img']} />
+        <div className="countryCard"> {/* Class name matches test case */}
+            <img src={flag} alt={`Flag of ${name}`} className={styles.cardImg} />
             <h2>{name}</h2>
         </div>
     );
@@ -16,7 +16,7 @@ function Countries() {
     const [data, setData] = useState([]); // State for countries data
     const [error, setError] = useState(null); // State for error tracking
     const [loading, setLoading] = useState(true); // State for loading tracking
-    const [searchTerm, setSearchTerm] = useState(''); // State for search term
+    const [searchTerm, setSearchTerm] = useState(""); // State for search term
 
     useEffect(() => {
         const fetchCountries = async () => {
@@ -45,35 +45,35 @@ function Countries() {
     };
 
     if (loading) {
-        return <div className={styles.Loading}>Loading countries...</div>;
+        return <div className={styles.loading}>Loading countries...</div>;
     }
 
     if (error) {
-        return <div className={styles.Error}>Error fetching data: {error}</div>;
+        return <div className={styles.error}>Error fetching data: {error}</div>;
     }
 
-    // Filter countries based on the search term, ensuring country.name is defined
+    // Filter countries based on the search term
     const filteredCountries = data.filter((country) =>
-        country.common && country.common.toLowerCase().includes(searchTerm) // match with 'common' from API
+        country.common.toLowerCase().includes(searchTerm)
     );
 
     return (
         <div>
-            <input 
-                type="text" 
-                placeholder="Search for a country" 
+            <input
+                type="text"
+                placeholder="Search for a country"
                 value={searchTerm}
-                onChange={handleSearchChange} 
-                className={styles.SearchInput}
+                onChange={handleSearchChange}
+                className={styles.searchInput}
             />
 
             {filteredCountries.length === 0 ? (
-                <div className={styles.NoResults}>No results found</div> // Show message when no results are found
+                <div className={styles.noResults}>No results found</div>
             ) : (
-                <div className={styles.Countries}>
+                <div className={styles.countries}>
                     {filteredCountries.map((country, index) => (
                         <CountryCard
-                            key={country.common || index} // Use common name as key or index
+                            key={country.common || index}
                             name={country.common}
                             flag={country.png}
                         />
